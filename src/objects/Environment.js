@@ -1,9 +1,18 @@
 const Sprite=require("./impl/Sprite");
+const Person=require("./impl/Person");
 const PersonController=require("../behaviors/PersonController")
 class Environment {
-  constructor(averageIq, wordsSpoken, motherIq, fatherIq, context, cw, ch)
+  constructor(averageIq, wordsSpoken, motherIq, fatherIq, cw, ch)
   {
-    this.environmentContext = context;
+    let self=this;
+    this.environmentCanvas= document.createElement('canvas');
+    this.environmentCanvas.width = cw;
+    this.environmentCanvas.height = ch;
+    this.environmentCanvas.onclick= function(e){
+      self.onClick(e);
+    }
+    document.body.appendChild(this.environmentCanvas);
+    this.environmentContext = this.environmentCanvas.getContext("2d");
     let fps=24;
     this.gameObjects = [];
     this.canvasWidth = cw;
@@ -11,13 +20,12 @@ class Environment {
     this.averageIq = averageIq;
     this.wordsSpoken = wordsSpoken;
     for(let i=0; i<10; i++){
-      let sprite=new Sprite("data/graphics/sprites/sprite1.png",32, 32, 32, 32, 0);
-      sprite.attachBehavior(new PersonController(cw, ch));
-      this.gameObjects.push(sprite);
+      let person=new Person(this.averageIq/100);
+      person.attachBehavior(new PersonController(self));
+      this.gameObjects.push(person);
     }
-    let self = this;
     this.interval = setInterval(function(){ self.gameLoop(); }, 1000/fps);
-    this.interval = setInterval(function(){ self.fixedUpdate(); }, 5);
+    this.fixedInterval = setInterval(function(){ self.fixedUpdate(); }, 1000);
 
   }
 
@@ -27,7 +35,12 @@ class Environment {
         this.draw(this.environmentContext);
         this.lateUpdate();
   }
+  onClick(e){
+    this.gameObjects.forEach((gameObject)=>{
+      gameObject.onClick(e);
+    });
 
+  }
   draw(context){
     this.gameObjects.forEach((gameObject)=>{
       gameObject.draw(context);
@@ -51,6 +64,14 @@ class Environment {
       gameObject.fixedUpdate();
     });
   }
+  getWidth(){
+    return this.canvasWidth;
+  }
+  getHeight(){
+    return this.canvasHeight;
+  }
+  getGameObjects(){
+    return this.gameObjects;
+  }
 }
-
 module.exports = Environment;

@@ -41,5 +41,15 @@ class Sprite extends GameObject{
       this.frame=0;
     }
   }
+  updateImage(image){
+    this.image.src=image;
+  }
+  getWidth(){
+    return this.spriteWidth;
+  }
+  getHeight(){
+    return this.spriteHeight;
+  }
 }
+
 module.exports=Sprite;

@@ -1,15 +1,28 @@
 const Behavior=require("../objects/Behavior");
 
 class PersonController extends Behavior{
-  constructor(environmentWidth, environmentHeight){
+  constructor(environment){
     super();
-
-    this.environmentWidth = environmentWidth;
-    this.environmentHeight = environmentHeight;
+    this.environment=environment;
+    this.environmentWidth = environment.getWidth();
+    this.environmentHeight = environment.getHeight();
     this.maxSpeed = 6;
     this.direction = {'x': this.generateRandomSpeed(this.maxSpeed) , 'y': this.generateRandomSpeed(this.maxSpeed)};
   }
-
+  onClick(e){
+  //  console.log(this);
+  //  console.log(this.environment);
+  //  console.log(this.environment.getGameObjects());
+    this.environment.getGameObjects().forEach((gameObject)=>{
+      if(gameObject.getX() <=e.offsetX &&
+      gameObject.getX()+gameObject.getWidth()>=e.offsetX &&
+      gameObject.getY()<=e.offsetY &&
+      gameObject.getY()+gameObject.getHeight()>=e.offsetY){
+        return;
+      }
+    });
+    console.log("x:"+e.offsetX+" y:"+e.offsetY);
+  }
   update(gameObject) {
     if(gameObject.getX() <= 0)
     {
@@ -42,5 +55,6 @@ class PersonController extends Behavior{
     return Math.floor(Math.random()*2) == 1 ? RandomSpeed : -RandomSpeed;
   }
 }
+
 
 module.exports=PersonController;

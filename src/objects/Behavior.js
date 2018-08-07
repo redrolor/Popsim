@@ -3,14 +3,17 @@ class Behavior{
     this.gameObject=null;
   }
   initialize(){}
-  onKeyUp(){
+  onKeyUp(e){
 
   }
-  onKeyDown(){
+  onKeyDown(e){
 
   }
-  onKeyPress(){
+  onKeyPress(e){
 
+  }
+  onClick(e){
+    
   }
   update(gameObject){
   }

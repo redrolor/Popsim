@@ -38,7 +38,12 @@ class GameObject{
       behavior.onKeyPress(e);
   });
 }
-  attachBehavior(behavior){
+  onClick(e){
+    this.behaviors.forEach((behavior)=>{
+      behavior.onClick(e);
+    });
+  }
+attachBehavior(behavior){
     behavior.onAttachBehavior(this);
     this.behaviors.push(behavior);
 
@@ -55,5 +60,12 @@ class GameObject{
   setY(y){
     this.y=y;
   }
+  getWidth(){
+    return 0;
+  }
+  getHeight(){
+    return 0;
+  }
+
 }
 module.exports=GameObject;
