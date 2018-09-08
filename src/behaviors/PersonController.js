@@ -1,5 +1,5 @@
 const Behavior=require("../objects/Behavior");
-
+const Person= require("../objects/impl/Person");
 class PersonController extends Behavior{
   constructor(environment){
     super();
@@ -10,18 +10,7 @@ class PersonController extends Behavior{
     this.direction = {'x': this.generateRandomSpeed(this.maxSpeed) , 'y': this.generateRandomSpeed(this.maxSpeed)};
   }
   onClick(e){
-  //  console.log(this);
-  //  console.log(this.environment);
-  //  console.log(this.environment.getGameObjects());
-    this.environment.getGameObjects().forEach((gameObject)=>{
-      if(gameObject.getX() <=e.offsetX &&
-      gameObject.getX()+gameObject.getWidth()>=e.offsetX &&
-      gameObject.getY()<=e.offsetY &&
-      gameObject.getY()+gameObject.getHeight()>=e.offsetY){
-        return;
-      }
-    });
-    console.log("x:"+e.offsetX+" y:"+e.offsetY);
+    console.log("1 game object was clicked")
   }
   update(gameObject) {
     if(gameObject.getX() <= 0)

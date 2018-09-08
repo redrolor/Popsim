@@ -37,8 +37,16 @@ class Environment {
   }
   onClick(e){
     this.gameObjects.forEach((gameObject)=>{
-      gameObject.onClick(e);
-    });
+          if(gameObject instanceof Person &&
+          gameObject.getX() <=e.offsetX &&
+          gameObject.getX()+gameObject.getWidth()>=e.offsetX &&
+          gameObject.getY()<=e.offsetY &&
+          gameObject.getY()+gameObject.getHeight()>=e.offsetY){
+          gameObject.onClick(e);
+            return;
+          }
+        });
+        console.log("x:"+e.offsetX+" y:"+e.offsetY);
 
   }
   draw(context){
