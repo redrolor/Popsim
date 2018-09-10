@@ -8,11 +8,15 @@ class PersonController extends Behavior{
     this.environmentHeight = environment.getHeight();
     this.maxSpeed = 6;
     this.direction = {'x': this.generateRandomSpeed(this.maxSpeed) , 'y': this.generateRandomSpeed(this.maxSpeed)};
+    this.currentIntelligence=0;
   }
   onClick(e){
-    console.log("1 game object was clicked")
+    console.log("1 game object was clicked");
+    console.log("Current int:"+this.currentIntelligence)
+
   }
   update(gameObject) {
+    this.currentIntelligence=gameObject.intelligence;
     if(gameObject.getX() <= 0)
     {
       this.direction.x = this.convertNumber(this.generateRandomSpeed(this.maxSpeed), 1);

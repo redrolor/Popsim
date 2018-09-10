@@ -18,9 +18,9 @@ function createEnvironmentPartial(index, targetId){
   environmentIq.setAttribute("iq", "env"+ index + "iq");
   environmentIq.setAttribute("name", "env"+ index + "iq");
   environmentIq.setAttribute("step", "1");
-  environmentIq.setAttribute("value", "50");
+  environmentIq.setAttribute("value", "100");
   environmentIq.setAttribute("min", "0");
-  environmentIq.setAttribute("max", "100");
+  environmentIq.setAttribute("max", "160");
 
   var br = document.createElement("br");
   partial.appendChild(br);
@@ -38,6 +38,14 @@ function createEnvironmentPartial(index, targetId){
   environmentWords.setAttribute("id", "env" + index + "words");
   environmentWords.setAttribute("name", "env" + index + "words");
   partial.appendChild(environmentWords);
+
+  var wordsSpokenMax = document.createElement("input");
+  wordsSpokenMax.type="hidden";
+  wordsSpokenMax.setAttribute("name", "env" + index+ "maxwords");
+  wordsSpokenMax.setAttribute("id", "env" + index + "maxwords");
+  wordsSpokenMax.setAttribute("value", environmentWords.getAttribute("max"));
+  partial.appendChild(wordsSpokenMax);
+
 
   document.getElementById(targetId).appendChild(partial);
 

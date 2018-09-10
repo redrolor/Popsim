@@ -2,12 +2,14 @@ const Sprite=require("./impl/Sprite");
 const Person=require("./impl/Person");
 const PersonController=require("../behaviors/PersonController")
 class Environment {
-  constructor(averageIq, wordsSpoken, motherIq, fatherIq, cw, ch)
+  constructor(averageIq, wordsSpoken,wordsMax, motherIq, fatherIq, cw, ch)
   {
     let self=this;
     this.environmentCanvas= document.createElement('canvas');
     this.environmentCanvas.width = cw;
     this.environmentCanvas.height = ch;
+    this.wordsMax=wordsMax;
+
     this.environmentCanvas.onclick= function(e){
       self.onClick(e);
     }
@@ -19,8 +21,9 @@ class Environment {
     this.canvasHeight = ch;
     this.averageIq = averageIq;
     this.wordsSpoken = wordsSpoken;
+
     for(let i=0; i<10; i++){
-      let person=new Person(this.averageIq/100);
+      let person=new Person(this.averageIq/100,this.wordsMax, this.wordsSpoken);
       person.attachBehavior(new PersonController(self));
       this.gameObjects.push(person);
     }
